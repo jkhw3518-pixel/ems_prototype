@@ -52,7 +52,7 @@ SOURCE_DATABASE_URL=postgresql://... pnpm db:import-remote
 
 ## 알림
 
-- Vercel Cron 이 5분마다 `GET /api/alerts/evaluate` 호출 (`vercel.json`, `Authorization: Bearer $CRON_SECRET`).
+- Vercel Cron 이 매일 07:30(KST) `GET /api/alerts/evaluate` 호출 (`vercel.json`, `Authorization: Bearer $CRON_SECRET`). Hobby 요금제는 하루 1회까지만 가능 — Pro 에서 실시간 수집 시 `*/5 * * * *` 로 변경.
 - 업로드/분석 직후에는 서버 내부에서 바로 평가합니다 (배치 업로드 시 지속시간 알림은 "사후 탐지"로 표기).
 - 최근 10분 내 리딩이 들어오는 실시간 수집 환경에서는 진행 중인 정지 구간·최근 2시간 가동율도 평가합니다.
 - 중복 억제(dedup_key) · 쿨다운 · 설비·사유별 일 10건 제한 · 방해금지(위험 등급 제외, 해제 후 묶음 발송) · 3회 재시도.
