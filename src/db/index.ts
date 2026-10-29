@@ -25,6 +25,10 @@ async function create(): Promise<DB> {
     });
     return drizzlePg(pool, { schema });
   }
+  if (process.env.VERCEL) {
+    // Vercel 은 파일시스템이 읽기 전용이라 로컬 PGlite 를 쓸 수 없다
+    throw new Error("DATABASE_URL 환경변수가 설정되지 않았습니다. Vercel 프로젝트 Settings → Environment Variables 에 추가한 뒤 Redeploy 하세요.");
+  }
   const { PGlite } = await import("@electric-sql/pglite");
   const { drizzle } = await import("drizzle-orm/pglite");
   const client = new PGlite(process.env.PGLITE_DIR ?? "./.pglite");

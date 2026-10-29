@@ -20,7 +20,9 @@ export function handler<C = unknown>(fn: (req: Request, db: DB, ctx: C) => Promi
     } catch (e) {
       if (e instanceof HttpError) return json({ error: e.message }, e.status);
       console.error(e);
-      return json({ error: e instanceof Error ? e.message : "서버 오류" }, 500);
+      // drizzle 은 "Failed query: ..." 로 감싸므로 실제 원인(cause)을 함께 보여준다
+      const cause = e instanceof Error && e.cause instanceof Error ? ` — 원인: ${e.cause.message}` : "";
+      return json({ error: e instanceof Error ? `${e.message.split("\n")[0].slice(0, 200)}${cause}` : "서버 오류" }, 500);
     }
   };
 }
