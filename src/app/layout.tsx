@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 import { AppHeader } from "@/components/app-header";
 
@@ -14,12 +13,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="antialiased">
         <AppHeader />
         <main className="mx-auto max-w-[1400px] px-4 py-5">{children}</main>
-        <Script
-          src="https://chatbot.aiconvergencelab.com/widget.js"
-          data-slug="bot-90bcc018"
-          data-title="황준규"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );
